@@ -20,6 +20,7 @@ use TarlanPayments\Gateway\Interfaces\ResponseInterface;
 use TarlanPayments\Gateway\Operations\Info\History;
 use TarlanPayments\Gateway\Operations\Info\Result;
 use TarlanPayments\Gateway\Operations\Info\Status;
+use TarlanPayments\Gateway\Operations\Transactions\B2P;
 use TarlanPayments\Gateway\Operations\Transactions\Cancel;
 use TarlanPayments\Gateway\Operations\Transactions\Credit;
 use TarlanPayments\Gateway\Operations\Transactions\DmsCharge;
@@ -34,6 +35,7 @@ use TarlanPayments\Gateway\Operations\Transactions\RecurrentSms;
 use TarlanPayments\Gateway\Operations\Transactions\Refund;
 use TarlanPayments\Gateway\Operations\Transactions\Reversal;
 use TarlanPayments\Gateway\Operations\Transactions\Sms;
+use TarlanPayments\Gateway\Operations\Verify\Enrolled3D;
 
 class GatewayTest extends TestCase
 {
@@ -81,6 +83,7 @@ class GatewayTest extends TestCase
         $this->assertInstanceOf(MotoDms::class, $gw->createMotoDms());
         $this->assertInstanceOf(Credit::class, $gw->createCredit());
         $this->assertInstanceOf(P2P::class, $gw->createP2P());
+        $this->assertInstanceOf(B2P::class, $gw->createB2P());
         $this->assertInstanceOf(InitRecurrentSms::class, $gw->createInitRecurrentSms());
         $this->assertInstanceOf(InitRecurrentDms::class, $gw->createInitRecurrentDms());
         $this->assertInstanceOf(RecurrentSms::class, $gw->createRecurrentSms());
@@ -91,6 +94,8 @@ class GatewayTest extends TestCase
         $this->assertInstanceOf(Result::class, $gw->createResult());
         $this->assertInstanceOf(History::class, $gw->createHistory());
         $this->assertInstanceOf(Status::class, $gw->createStatus());
+
+        $this->assertInstanceOf(Enrolled3D::class, $gw->createVerify3dEnrollment());
 
         $status = $gw->createStatus();
         $status->info()->setGatewayTransactionIDs(['example-key']);

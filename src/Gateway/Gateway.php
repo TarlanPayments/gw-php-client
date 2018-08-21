@@ -19,6 +19,7 @@ use TarlanPayments\Gateway\DataSets\Money;
 use TarlanPayments\Gateway\DataSets\Order;
 use TarlanPayments\Gateway\DataSets\PaymentMethod;
 use TarlanPayments\Gateway\DataSets\System;
+use TarlanPayments\Gateway\DataSets\Verify3dEnrollment;
 use TarlanPayments\Gateway\Exceptions\ValidatorException;
 use TarlanPayments\Gateway\Http\Client\Client;
 use TarlanPayments\Gateway\Http\Request;
@@ -29,6 +30,7 @@ use TarlanPayments\Gateway\Interfaces\ResponseInterface;
 use TarlanPayments\Gateway\Operations\Info\History;
 use TarlanPayments\Gateway\Operations\Info\Result;
 use TarlanPayments\Gateway\Operations\Info\Status;
+use TarlanPayments\Gateway\Operations\Transactions\B2P;
 use TarlanPayments\Gateway\Operations\Transactions\Cancel;
 use TarlanPayments\Gateway\Operations\Transactions\Credit;
 use TarlanPayments\Gateway\Operations\Transactions\DmsCharge;
@@ -43,6 +45,7 @@ use TarlanPayments\Gateway\Operations\Transactions\RecurrentSms;
 use TarlanPayments\Gateway\Operations\Transactions\Refund;
 use TarlanPayments\Gateway\Operations\Transactions\Reversal;
 use TarlanPayments\Gateway\Operations\Transactions\Sms;
+use TarlanPayments\Gateway\Operations\Verify\Enrolled3D;
 use TarlanPayments\Gateway\Validator\Validator;
 
 /**
@@ -216,6 +219,19 @@ class Gateway
     }
 
     /**
+     * B2P transaction request builder.
+     *
+     * B2P transaction request builder provide all
+     * needed methods to prepare request.
+     *
+     * @return B2P
+     */
+    public function createB2P()
+    {
+        return new B2P(new Validator(), new PaymentMethod(), new Money(), new Customer(), new Order(), new System());
+    }
+
+    /**
      * Init Recurrent SMS transaction request builder.
      *
      * Init Recurrent SMS transaction request builder provide all
@@ -251,7 +267,7 @@ class Gateway
      */
     public function createRecurrentSms()
     {
-        return new RecurrentSms(new Validator(), new Money(), new Command());
+        return new RecurrentSms(new Validator(), new Money(), new Command(), new Order());
     }
 
     /**
@@ -264,7 +280,7 @@ class Gateway
      */
     public function createRecurrentDms()
     {
-        return new RecurrentDms(new Validator(), new Money(), new Command());
+        return new RecurrentDms(new Validator(), new Money(), new Command(), new Order());
     }
 
     /**
@@ -330,6 +346,19 @@ class Gateway
     public function createStatus()
     {
         return new Status(new Validator(), new Info());
+    }
+
+    /**
+     * Verify 3D-Secure enrollment request builder.
+     *
+     * Verify 3D-Secure enrollment builder provide all
+     * needed methods to prepare request.
+     *
+     * @return Enrolled3D
+     */
+    public function createVerify3dEnrollment(): Enrolled3D
+    {
+        return new Enrolled3D(new Validator(), new Verify3dEnrollment());
     }
 
     /**

@@ -14,6 +14,7 @@ namespace TarlanPayments\Gateway\Operations\Transactions;
 use TarlanPayments\Gateway\DataSets\Command;
 use TarlanPayments\Gateway\DataSets\DataSet;
 use TarlanPayments\Gateway\DataSets\Money;
+use TarlanPayments\Gateway\DataSets\Order;
 use TarlanPayments\Gateway\Interfaces\OperationInterface;
 use TarlanPayments\Gateway\Operations\Operation;
 use TarlanPayments\Gateway\Validator\Validator;
@@ -55,19 +56,26 @@ class RecurrentSms extends Operation implements OperationInterface
     private $command;
 
     /**
+     * @var Order
+     */
+    private $order;
+
+    /**
      * RecurrentSms constructor.
      * @param Validator $validator
      * @param Money     $money
      * @param Command   $command
+     * @param Order     $order
      */
-    public function __construct(Validator $validator, Money $money, Command $command)
+    public function __construct(Validator $validator, Money $money, Command $command, Order $order)
     {
         $this->validator = $validator;
 
         $this->money = $money;
         $this->command = $command;
+        $this->order = $order;
 
-        $this->dataSets = [$this->money, $this->command];
+        $this->dataSets = [$this->money, $this->command, $this->order];
     }
 
     /**
@@ -84,5 +92,13 @@ class RecurrentSms extends Operation implements OperationInterface
     public function money()
     {
         return $this->money;
+    }
+
+    /**
+     * @return Order
+     */
+    public function Order()
+    {
+        return $this->order;
     }
 }
