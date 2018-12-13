@@ -1,3 +1,7 @@
+##### Version 1.3.0 (2018-12-13)
+
+	Fix authorizarion: correct way is to use $gateway->auth()->setAccountGUID()
+
 ##### Version 1.2.0 (2018-08-21)
 
 	Added order information for subsequent requrring payments to pass field merchant-transaction-id
