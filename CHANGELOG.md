@@ -1,3 +1,14 @@
+##### Version 1.3.1 (2019-01-23)
+
+	Added possibility to send mercahnt transaction ID for some methods to meet
+	GW requirements
+	
+	Affected methods:
+	 - DMS Hold cancel
+	 - DMS Hold Charge
+	 - Refund
+	 - Reversal
+
 ##### Version 1.3.0 (2018-12-13)
 
 	Fix authorizarion: correct way is to use $gateway->auth()->setAccountGUID()
