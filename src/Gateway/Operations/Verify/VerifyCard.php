@@ -12,17 +12,17 @@
 namespace TarlanPayments\Gateway\Operations\Verify;
 
 use TarlanPayments\Gateway\DataSets\DataSet;
-use TarlanPayments\Gateway\DataSets\Verify3dEnrollment;
+use TarlanPayments\Gateway\DataSets\VerifyCardData;
 use TarlanPayments\Gateway\Interfaces\OperationInterface;
 use TarlanPayments\Gateway\Operations\Operation;
 use TarlanPayments\Gateway\Validator\Validator;
 
 /**
- * Class Enrolled3D.
- * This class describes dataset to perform verify 3-D Secure enrollment request.
+ * Class VerifyCard.
+ * This class describes dataset to perform card verification completion request.
  * Refer to official documentation for more information about this request.
  */
-class Enrolled3D extends Operation implements OperationInterface
+class VerifyCard extends Operation implements OperationInterface
 {
     /**
      * {@inheritdoc}
@@ -32,27 +32,25 @@ class Enrolled3D extends Operation implements OperationInterface
     /**
      * {@inheritdoc}
      */
-    protected $path = '/verify/3d-enrollment';
+    protected $path = '/verify/card';
 
     /**
      * {@inheritdoc}
      */
     protected $mandatoryFields = [
-        DataSet::DATA_TERMINAL_MID,
-        DataSet::DATA_CURRENCY,
-        DataSet::DATA_PAN,
+        DataSet::DATA_GATEWAY_TRANSACTION_ID,
     ];
 
-    /** @var Verify3dEnrollment */
+    /** @var VerifyCardData */
     private $inputData;
 
     /**
      * Constructor.
      *
-     * @param Validator          $validator
-     * @param Verify3dEnrollment $dataSet
+     * @param Validator      $validator
+     * @param VerifyCardData $dataSet
      */
-    public function __construct(Validator $validator, Verify3dEnrollment $dataSet)
+    public function __construct(Validator $validator, VerifyCardData $dataSet)
     {
         $this->validator = $validator;
         $this->inputData = $dataSet;
@@ -61,9 +59,9 @@ class Enrolled3D extends Operation implements OperationInterface
     }
 
     /**
-     * @return Verify3dEnrollment
+     * @return VerifyCardData
      */
-    public function inputData(): Verify3dEnrollment
+    public function data(): VerifyCardData
     {
         return $this->inputData;
     }

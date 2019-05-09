@@ -12,6 +12,7 @@
 namespace TarlanPayments\Gateway\Operations\Transactions;
 
 use PHPUnit\Framework\TestCase;
+use TarlanPayments\Gateway\DataSets\Command;
 use TarlanPayments\Gateway\DataSets\Customer;
 use TarlanPayments\Gateway\DataSets\DataSet;
 use TarlanPayments\Gateway\DataSets\Money;
@@ -32,7 +33,7 @@ class InitRecurrentSmsTest extends TestCase
             DataSet::MONEY_DATA_CURRENCY => 'USD',
         ];
 
-        $sms = new InitRecurrentSms(new Validator(), new PaymentMethod(), new Money(), new Customer(), new Order(), new System());
+        $sms = new InitRecurrentSms(new Validator(), new PaymentMethod(), new Money(), new Customer(), new Order(), new System(), new Command());
         $sms->paymentMethod()
             ->setPAN('qwe123')
             ->setExpire('12/21')
