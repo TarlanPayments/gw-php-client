@@ -31,6 +31,7 @@ use TarlanPayments\Gateway\Interfaces\ResponseInterface;
 use TarlanPayments\Gateway\Operations\Info\History;
 use TarlanPayments\Gateway\Operations\Info\Result;
 use TarlanPayments\Gateway\Operations\Info\Status;
+use TarlanPayments\Gateway\Operations\Token\CreateToken;
 use TarlanPayments\Gateway\Operations\Transactions\B2P;
 use TarlanPayments\Gateway\Operations\Transactions\Cancel;
 use TarlanPayments\Gateway\Operations\Transactions\Credit;
@@ -178,7 +179,7 @@ class Gateway
      */
     public function createMotoSms()
     {
-        return new MotoSms(new Validator(), new PaymentMethod(), new Money(), new Customer(), new Order(), new System());
+        return new MotoSms(new Validator(), new PaymentMethod(), new Money(), new Customer(), new Order(), new System(), new Command());
     }
 
     /**
@@ -191,7 +192,7 @@ class Gateway
      */
     public function createMotoDms()
     {
-        return new MotoDms(new Validator(), new PaymentMethod(), new Money(), new Customer(), new Order(), new System());
+        return new MotoDms(new Validator(), new PaymentMethod(), new Money(), new Customer(), new Order(), new System(), new Command());
     }
 
     /**
@@ -374,6 +375,19 @@ class Gateway
     public function createCardVerification(): VerifyCard
     {
         return new VerifyCard(new Validator(), new VerifyCardData());
+    }
+
+    /**
+     * Payment data tokenization request.
+     *
+     * Payment data tokenization builder provide all
+     * needed methods to prepare request.
+     *
+     * @return CreateToken
+     */
+    public function createToken(): CreateToken
+    {
+        return new CreateToken(new Validator(), new PaymentMethod(), new Money(), new Order(), new System(), new Command());
     }
 
     /**

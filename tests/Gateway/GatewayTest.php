@@ -20,6 +20,7 @@ use TarlanPayments\Gateway\Interfaces\ResponseInterface;
 use TarlanPayments\Gateway\Operations\Info\History;
 use TarlanPayments\Gateway\Operations\Info\Result;
 use TarlanPayments\Gateway\Operations\Info\Status;
+use TarlanPayments\Gateway\Operations\Token\CreateToken;
 use TarlanPayments\Gateway\Operations\Transactions\B2P;
 use TarlanPayments\Gateway\Operations\Transactions\Cancel;
 use TarlanPayments\Gateway\Operations\Transactions\Credit;
@@ -36,6 +37,7 @@ use TarlanPayments\Gateway\Operations\Transactions\Refund;
 use TarlanPayments\Gateway\Operations\Transactions\Reversal;
 use TarlanPayments\Gateway\Operations\Transactions\Sms;
 use TarlanPayments\Gateway\Operations\Verify\Enrolled3D;
+use TarlanPayments\Gateway\Operations\Verify\VerifyCard;
 
 class GatewayTest extends TestCase
 {
@@ -96,6 +98,8 @@ class GatewayTest extends TestCase
         $this->assertInstanceOf(Status::class, $gw->createStatus());
 
         $this->assertInstanceOf(Enrolled3D::class, $gw->createVerify3dEnrollment());
+        $this->assertInstanceOf(VerifyCard::class, $gw->createCardVerification());
+        $this->assertInstanceOf(CreateToken::class, $gw->createToken());
 
         $status = $gw->createStatus();
         $status->info()->setGatewayTransactionIDs(['example-key']);
